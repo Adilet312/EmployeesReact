@@ -1,0 +1,50 @@
+.list{
+  width:1280px;
+  margin:0;
+  box-shadow: 2px 2px 2px 2px #333;
+  margin:100px auto;
+
+}
+.cell{
+  display: inline-block;
+  width:160px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.list #cityId {
+ margin-left: 100px;
+}
+.row-header{
+  font-weight: bold;
+  background-color: #cecece;
+
+}
+.row{
+  border-bottom: solid 1px #cecece;
+  font-size: 13px;
+}
+.row #emailId{
+ width:250px;
+
+}
+.row #deleteId #updateId{
+  width:100px;
+}
+.search-box{
+  margin-left: 40%;
+  margin-top: 60px;
+  width:500px;
+  position: absolute;
+}
+
+.category-box{
+
+  margin-left: 54%;
+  width:500px;
+  position: relative;
+  padding-top: 60px;
+}
+#noteId{
+  text-align: center;
+  color: red;
+}

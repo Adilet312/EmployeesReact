@@ -1,6 +1,6 @@
 # _Employee With React_
 
-#### _Version 04/27/2020_
+#### _Version 04/29/2020_
 
 #### By _**Adilet Momunaliev**_
 
@@ -20,6 +20,9 @@ These instructions will get you a copy of the project up and running on your loc
 * npm install react-webpack
 * npm run start
 ### Specifications
+* Filter employee by name, email, city, and state
+* Show employee in detail
+* Do CRUD Operations
 
 
 ## Technologies Used
