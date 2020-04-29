@@ -1,6 +1,6 @@
 import React from 'react';
 
-/*Search with Classs*/
+/*Search with Class*/
 
 
 export default class Search extends React.Component{

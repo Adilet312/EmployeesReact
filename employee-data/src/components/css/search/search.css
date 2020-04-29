@@ -1,0 +1,18 @@
+.search-box{
+  margin-left: 40%;
+  margin-top: 60px;
+  width:500px;
+  position: absolute;
+}
+
+.category-box{
+
+  margin-left: 54%;
+  width:500px;
+  position: relative;
+  padding-top: 60px;
+}
+#noteId{
+  text-align: center;
+  color: red;
+}
