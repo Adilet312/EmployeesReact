@@ -1,9 +1,9 @@
 import React from 'react';
 import List from './list/List'
-import Search from './search/Search';
+//import Search from './search/Search';
+import Search from './Search';
 import './css/list/list.css';
 import './css/search/search.css';
-//import './css/employee.css'
 class App extends React.Component {
   constructor(){
     super();
@@ -21,16 +21,15 @@ class App extends React.Component {
       this.setState({employees:data})
     })
   }
-  componentDidMount(){ this.callApi();}
-  deleteEployee  = (updatedList)  =>     this.setState({employees:updatedList});
-  searchByName   = (updatedList)  =>     this.setState({employees:updatedList});
-
+  componentDidMount = ( )             => this.callApi();
+  deleteEployee     = (updatedList)   =>     this.setState({employees:updatedList});
+  searchEmployee   = (updatedList)   =>     this.setState({employees:updatedList});
 
   render(){
     const {employees,isLoading, search} = this.state;
     return(<div>
-              <Search   employees = {this.state.employees} searchByName = {this.searchByName}/>
-              <List    employees = {employees} deleteEployee = {this.deleteEployee} />
+              <Search  searchEmployee = {this.searchEmployee} employees = {this.state.employees}/>
+              <List   employees = {employees} deleteEployee = {this.deleteEployee} />
             </div>);
   }
 }
