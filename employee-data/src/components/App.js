@@ -9,6 +9,7 @@ class App extends React.Component {
     super();
     this.state = {
       employees:[],
+      tempEmployees:[],
       isLoading:false,
 
     }
@@ -18,19 +19,22 @@ class App extends React.Component {
     fetch('https://raw.githubusercontent.com/maratgaip/json/master/people.json')
     .then(result => result.json())
     .then((data) => {
+      console.log(data)
       this.setState({employees:data})
+      this.setState({tempEmployees:data})
     })
   }
-  componentDidMount = ( )             => this.callApi();
-  deleteEployee     = (updatedList)   =>     this.setState({employees:updatedList});
-  searchEmployee   = (updatedList)   =>     this.setState({employees:updatedList});
-
+  componentDidMount = ( ) => this.callApi();
+  deleteEployee     = (updatedList)  =>      this.setState({tempEmployees:updatedList});
+  searchEmployee   = (updatedList)   =>      this.setState({tempEmployees:updatedList});
+  sortByColumn     = (updatedList)   =>      this.setState({tempEmployees:updatedList})
   render(){
     const {employees,isLoading, search} = this.state;
     return(<div>
               <Search  searchEmployee = {this.searchEmployee} employees = {this.state.employees}/>
-              <List   employees = {employees} deleteEployee = {this.deleteEployee} />
+              <List  sortByColumn = {this.sortByColumn}  tempEmployees = {this.state.tempEmployees} employees = {employees} deleteEployee = {this.deleteEployee} />
             </div>);
   }
 }
 export default App;
+// 'https://raw.githubusercontent.com/maratgaip/json/master/people.json'

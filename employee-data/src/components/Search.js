@@ -10,33 +10,36 @@ class Search extends React.Component{
   }
   searchByCategory  = (given_search)  =>  this.setState({searchBy:given_search});
   getInputData      = (event) =>  {
-      const {search, searchBy} = this.state;
       this.setState({search:event.target.value},()=>{
+      const {search, searchBy,employees} = this.state;
       let temp = this.props.employees;
-      if(!searchBy){
+      if(!searchBy.length){
         temp = temp.filter(employee => employee.first_name.toLowerCase().includes(search.toLowerCase()))
         this.props.searchEmployee(temp)
+        this.setState({search:''})
       }
       else{
-      temp = temp.filter(employee => employee[searchBy].toLowerCase().includes(search.toLowerCase()))
-      this.props.searchEmployee(temp)
+      temp = temp.filter(employee => employee[searchBy].toLowerCase().includes(this.state.search.toLowerCase()))
+      this.props.searchEmployee(temp);
+
       }
     });
+
   }
 
   render(){
         return(<div>
                 <div className = 'search-box'>
-                  <input value ={this.state.search}  placeholder = 'search' onChange = {this.getInputData}/>
+                  <input   placeholder = 'search' onChange = {this.getInputData}/>
                 </div>
                 <div className = 'category-box'>
                   <select id = 'employees'>
                     <option value = '' selected>Select column</option>
                     <option onClick = {() => this.searchByCategory('first_name')}>First name </option>
                     <option onClick = {() => this.searchByCategory('last_name')}> Last name </option>
-                    <option onClick = {() => this.searchByCategory('email_name')}>Email</option>
-                    <option onClick = {() => this.searchByCategory('city_name')}>City</option>
-                    <option onClick = {() => this.searchByCategory('state_name')}>State</option>
+                    <option onClick = {() => this.searchByCategory('email')}>Email</option>
+                    <option onClick = {() => this.searchByCategory('city')}>City</option>
+                    <option onClick = {() => this.searchByCategory('state')}>State</option>
                   </select>
                 </div>
 

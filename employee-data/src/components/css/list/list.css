@@ -3,21 +3,36 @@
   margin:0;
   box-shadow: 2px 2px 2px 2px #333;
   margin:100px auto;
+  cursor: pointer;
 
 }
+
 .cell{
   display: inline-block;
   width:160px;
-  padding: 15px;
+  padding: 30px;
   box-sizing: border-box;
 }
+.row:nth-of-type(2n){
+  background: lightgrey;
+}
 .list #cityId {
- margin-left: 100px;
+ margin-left: 90px;
+
+
 }
 .row-header{
   font-weight: bold;
   background-color: #cecece;
 
+}
+.row-header select{
+  margin-right: 3px;
+  background-color: #cecece;
+
+}
+#id{
+  width:140px
 }
 .row{
   border-bottom: solid 1px #cecece;
