@@ -10,7 +10,7 @@
 .cell{
   display: inline-block;
   width:160px;
-  padding: 30px;
+  padding: 15px;
   box-sizing: border-box;
 }
 .row:nth-of-type(2n){
@@ -44,4 +44,39 @@
 }
 .row #deleteId #updateId{
   width:100px;
+}
+.prev{
+ display: none;
+ padding-right: 80px;
+}
+.pagination{
+  text-align: center;
+
+}
+.next{
+  display:none;
+
+
+
+}
+.sub-pagination {
+  width:300px;
+  margin-left: 45%;
+  height: 60px;
+
+
+}
+#prev{
+  box-sizing: border-box;
+  position: absolute;
+  margin-right: 80px;
+  /* margin-top: 20px; */
+
+
+}
+#next{
+  box-sizing: border-box;
+  margin-left: 50px;
+  margin-top: 20px;
+  position: relative;
 }

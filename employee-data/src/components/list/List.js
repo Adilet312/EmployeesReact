@@ -4,8 +4,9 @@ class List extends React.Component{
   constructor(){
     super();
     this.state = {
-      sortByOption: '',
-      sortBy:'' ,
+      sortBy:true,
+      startPage:0,
+      endPage:15,
     }
 
   }
@@ -16,100 +17,67 @@ class List extends React.Component{
    this.props.deleteEployee(tempList);
  }
  sortByColumn = (given_column) => {
-     this.setState({sortByOption:given_column},()=>{
      const {sortBy} = this.state;
      let tempList = [];
      tempList = this.props.employees;
-     if(sortBy=='ascending' || sortBy=='descending'){
+     if(sortBy==true){
          for (let idx =0; idx< tempList.length-1; idx++){
            for(let index = idx +1; index < tempList.length; index++){
-             if(sortBy=='ascending'){
-               if(tempList[idx][given_column]>tempList[index][given_column]){
-                 let temp = tempList[index][given_column];
-                     tempList[index][given_column] = tempList[idx][given_column];
-                     tempList[idx][given_column] = temp;
-                   }
-                 }
-             else if(sortBy=='descending'){
-               if(tempList[idx][given_column]< tempList[index][given_column]){
+             if(tempList[idx][given_column]>tempList[index][given_column]){
                  let temp = tempList[index][given_column];
                      tempList[index][given_column] = tempList[idx][given_column];
                      tempList[idx][given_column] = temp;
                    }
                  }
                }
-             }
-           }
-        else if(sortBy=='default'){
-          for( let outIdx = 0; outIdx<tempList.length -1; outIdx++){
-            for(let inIdx = outIdx + 1; inIdx<tempList.length; inIdx++){
-              if(tempList[outIdx][given_column] > tempList[inIdx][given_column]){
-                let temp = tempList[inIdx][given_column];
-                tempList[inIdx][given_column] = tempList[outIdx][given_column];
-                tempList[outIdx][given_column] = temp;
-              }
-            }
-          }
+          this.setState({sortBy:false});
         }
+        else {
+          for (let idx =0; idx< tempList.length-1; idx++){
+            for(let index = idx +1; index < tempList.length; index++){
+               if(tempList[idx][given_column]< tempList[index][given_column]){
+                 let temp = tempList[index][given_column];
+                     tempList[index][given_column] = tempList[idx][given_column];
+                     tempList[idx][given_column] = temp;
+                   }
+                 }
+             }
+             this.setState({sortBy:true});
+           }
            this.props.sortByColumn(tempList);
-         });
+
        }
+   next = () => {
+     let start  =  this.state.endPage;
+     this.setState({startPage:start});
+     this.setState({endPage:start+15});
+   }
+   prev = () => {
+     let start = this.state.startPage - 15;
+     let end = this.state.endPage - 15;
+     console.log("start: " +start +".end: "+end);
+     this.setState({startPage:start});
+     this.setState({endPage:end});
+   }
 
 
-
-
- sortByOption = (sort_by_option) => this.setState({sortBy:sort_by_option});
   render(){
+    let peginationData = this.props.tempEmployees.slice(this.state.startPage,this.state.endPage);
+    let next = this.state.endPage;
+    let prev = this.state.startPage;
     return(<div className='list'>
               <div className='row-header'>
-                <div  id = 'id'onClick = {() => this.sortByColumn('id')} className = 'cell'>ID
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div onClick = {() => this.sortByColumn('first_name')} className = 'cell'>First name
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div onClick = {() => this.sortByColumn('last_name')} className = 'cell'>Last name
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div onClick = {() => this.sortByColumn('email')} className = 'cell'>Email
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div onClick = {() => this.sortByColumn('city')} id = 'cityId'className = 'cell'>City
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div onClick = {() => this.sortByColumn('state')} id = 'stateId' className = 'cell'>State
-                  <select>
-                    <option onClick = {() => this.sortByOption('default')} selected>sort</option>
-                    <option onClick = {() => this.sortByOption('ascending')}>sortByA</option>
-                    <option onClick =  {() => this.sortByOption('descending')}>sortByD</option>
-                  </select>
-                </div>
-                <div  id = 'deleteId'className = 'cell'>Delete</div>
-              </div>
-
-              <div className = "content">
+                  <div  id = 'id'onClick = {() => this.sortByColumn('id')} className = 'cell'>ID</div>
+                  <div onClick = {() => this.sortByColumn('first_name')} className = 'cell'>First name </div>
+                  <div onClick = {() => this.sortByColumn('last_name')} className = 'cell'>Last name</div>
+                  <div onClick = {() => this.sortByColumn('email')} className = 'cell'>Email</div>
+                  <div onClick = {() => this.sortByColumn('city')} id = 'cityId'className = 'cell'>City</div>
+                  <div onClick = {() => this.sortByColumn('state')} id = 'stateId' className = 'cell'>State</div>
+                  <div  id = 'deleteId'className = 'cell'>Delete</div>
+            </div>
+            <div className = "content">
               {
-                this.props.tempEmployees.map((employee,index) =>{
+                peginationData.map((employee,index) =>{
                   const {id,first_name,last_name,city,state,email} = employee;
                   return(
                   <div className='row'>
@@ -120,23 +88,21 @@ class List extends React.Component{
                     <div className = 'cell'>{city}</div>
                     <div className = 'cell'>{state}</div>
                     <div className = 'cell'><button onClick = {() => this.deleteEployee(index)}>Delete</button></div>
-
                   </div>)
                 })
               }
-              </div>
+             </div>
+             <div className = 'pagination'>
+               <div className = 'sub-pagination'>
+                 <div id = 'prev' className = {next< 16? 'prev' :''} onClick = {this.prev} >prev</div>
+                 <div id = 'next' className = {next >195? 'next' :''} onClick = {this.next}>next</div>
+               </div>
+             </div>
            </div>
 
     );
   }
 }
 export default List;
-
-
-// else if(sortBy=='reverse'){
-//   for(let idx = 0; idx<tempList.length/2; idx++){
-//      let temp = tempList[idx][given_column]
-//      tempList[idx][given_column] = tempList[tempList.length -1-idx][given_column];
-//      tempList[tempList.length -1-idx][given_column] = temp;
-//   }
-// }
+/*<i class="fas fa-sort-down"></i>*/
+/*<i class="fas fa-sort-up"></i>*/
