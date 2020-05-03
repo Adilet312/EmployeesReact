@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './list/List'
-//import Search from './search/Search';
-import Search from './Search';
+import Search from './search/Search';
+
 import './css/list/list.css';
 import './css/search/search.css';
 class App extends React.Component {
@@ -37,4 +37,3 @@ class App extends React.Component {
   }
 }
 export default App;
-// 'https://raw.githubusercontent.com/maratgaip/json/master/people.json'
