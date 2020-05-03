@@ -1,5 +1,4 @@
 import React from 'react';
-
 const Pagination = (props) =>{
   const paginationByNumber = (given_number) => { props.paginationByNumber(given_number,given_number+20);}
   return (

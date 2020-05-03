@@ -1,7 +1,6 @@
 import React from 'react';
 import List from './list/List'
 import Search from './search/Search';
-
 import './css/list/list.css';
 import './css/search/search.css';
 class App extends React.Component {

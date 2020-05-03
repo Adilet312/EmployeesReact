@@ -1,5 +1,6 @@
 import React from 'react';
-import Pagination from '../pagination/Pagination'
+import Pagination from '../pagination/Pagination';
+import '../css/pagination/pagination.css';
 class List extends React.Component{
   constructor(){
     super();
