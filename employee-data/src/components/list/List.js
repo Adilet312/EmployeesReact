@@ -8,6 +8,7 @@ class List extends React.Component{
       sortBy:true,
       startPage:0,
       endPage:20,
+      employeeInfo:{},
     }
 
   }
@@ -59,12 +60,22 @@ class List extends React.Component{
          this.setState({startPage:start});
          this.setState({endPage:end});
        }
-   paginationByNumber = (start,end) => { this.setState({startPage:start}); this.setState({endPage:end});}
+       paginationByNumber = (start,end) => { this.setState({startPage:start}); this.setState({endPage:end});}
+       showEmployee = (givenId)  => {
+         const {employees} = this.props;
+         for(let idx=0; idx<employees.length; idx++){
+           if(employees[idx].id==givenId){
+             this.setState({employeeInfo:employees[idx]});
+           }
+         }
+
+       }
+
 
   render(){
     let peginationData = this.props.tempEmployees.slice(this.state.startPage,this.state.endPage);
-    // let next = this.state.endPage;
-    return(<div className='list'>
+    return(<div className = 'main-box'>
+            <div className='list'>
               <div className='row-header'>
                   <div  id = 'id'onClick = {() => this.sortByColumn('id')} className = 'cell'>ID</div>
                   <div onClick = {() => this.sortByColumn('first_name')} className = 'cell'>First name </div>
@@ -79,7 +90,7 @@ class List extends React.Component{
                 peginationData.map((employee,index) =>{
                   const {id,first_name,last_name,city,state,email} = employee;
                   return(
-                  <div className='row'>
+                  <div onClick ={()=>this.showEmployee(id) } className='row'>
                     <div className = 'cell'>{id}</div>
                     <div className = 'cell'>{first_name}</div>
                     <div className = 'cell'>{last_name}</div>
@@ -93,7 +104,18 @@ class List extends React.Component{
              </div>
              <Pagination startPage = {this.state.startPage} endPage = {this.state.endPage}
               next = {this.next} prev = {this.prev} paginationByNumber = {this.paginationByNumber} />
-           </div>
+          </div>
+          <div className = 'detailInfo'>
+            <ul>
+              <li>ID:{this.state.employeeInfo.id}</li>
+              <li>First name: {this.state.employeeInfo.first_name}</li>
+              <li>Last name: {this.state.employeeInfo.last_name}</li>
+              <li>Email: {this.state.employeeInfo.email}</li>
+              <li>City: {this.state.employeeInfo.city}</li>
+              <li>State: {this.state.employeeInfo.state}</li>
+            </ul>
+         </div>
+      </div>
 
     );
   }
