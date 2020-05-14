@@ -1,6 +1,7 @@
 .list{
   width:1280px;
   margin:0;
+  margin-bottom: 20px;
   box-shadow: 2px 2px 2px 2px #333;
   margin:100px auto;
   cursor: pointer;
@@ -60,4 +61,32 @@
   width: 400px;;
   height: 200px;
   border: 2px solid black;
+}
+.pagination{
+  width:800px;
+  border: 1px solid white;
+  height:80px;
+  margin:0px auto;
+  position:relative;
+
+}
+.pagination .box {
+  margin-top:30px;
+  margin-left:12%;
+}
+.pagination .box div {
+
+  display:inline;
+  border:1px solid black;
+  padding:15px;
+
+
+}
+
+.pagination .box div:hover {
+  background-color: grey;
+}
+.active{
+  color: white;
+  background-color: grey;
 }
