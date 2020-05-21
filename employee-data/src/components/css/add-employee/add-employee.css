@@ -1,0 +1,11 @@
+.add-new-employee{
+float:right;
+margin-top:-36px;
+margin-right:100px;
+}
+.add-new-employee button {
+  width:144px;
+  font-size: 14px;
+  height: 29px;
+
+}

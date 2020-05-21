@@ -1,18 +1,23 @@
-.search-box{
-  margin-left: 40%;
-  margin-top: 60px;
-  width:500px;
+.container{
+  width:1480px;
   position: absolute;
+  display: inline-flex;
+  top: -5px;
+
 }
-
-.category-box{
-
-  margin-left: 54%;
-  width:500px;
+.search-box{
   position: relative;
-  padding-top: 60px;
+  margin-top: 70px;
+  margin-left: 80px;
+
 }
-#noteId{
-  text-align: center;
-  color: red;
+.search-box input{
+  width:1200px;
+}
+.category-box{
+  position: relative;
+  margin-top: 70px;
+}
+.category-box select{
+  height: 29px;
 }

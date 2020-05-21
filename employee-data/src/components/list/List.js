@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../css/pagination/pagination.css';
+import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
 class List extends React.Component{
   constructor(){
@@ -47,30 +47,42 @@ class List extends React.Component{
 
 
 
-       next = () => {
-         let countUp = this.state.currentPage;
-         countUp++;
-         if(countUp<=(this.props.employees.length/this.state.limit)){
-           this.setState({currentPage:countUp});
-         }
-       }
-       prev = () => {
-         let countDown = this.state.currentPage;
-         if(countDown>1 && countDown<=(this.props.employees.length/this.state.limit)){
-           countDown--;
-           this.setState({currentPage:countDown});
-         }
-       }
-       setPage = (givenPageNumber) => this.setState({currentPage:givenPageNumber});
+  next = () => {
+    let countUp = this.state.currentPage;
+    countUp++;
+    if(countUp<=(this.props.employees.length/this.state.limit)){
+      this.setState({currentPage:countUp});
+    }
+  }
+  prev = () => {
+    let countDown = this.state.currentPage;
+    if(countDown>1 && countDown<=(this.props.employees.length/this.state.limit)){
+      countDown--;
+      this.setState({currentPage:countDown});
+    }
+  }
+  setPage = (givenPageNumber) => this.setState({currentPage:givenPageNumber});
+  deleteEployee = (givenId,event) =>{
+    event.preventDefault();
+    this.props.deleteEployee(givenId);
+  }
+  updatedEmployee = (givenId,event) =>{
 
+    console.log("givenid: ",givenId)
+    const {tempEmployees} = this.props;
+        let updatedemployee = {...tempEmployees[givenId]} ;
 
-
-
-
+    this.props.updatedEmployee(updatedemployee);
+    event.preventDefault();
+  }
   render(){
     const {limit,currentPage} = this.state;
     let start = limit * (currentPage -1);
     let end  = limit * (currentPage);
+    let pages = [];
+    for (let idx =1; idx<=this.props.tempEmployees.length/limit; idx++){
+      pages.push(idx);
+    }
     let peginationData = this.props.tempEmployees.slice(start,end);
     return(<div className = 'main-box'>
             <div className='list'>
@@ -82,37 +94,34 @@ class List extends React.Component{
                     <div onClick = {() => this.sortByColumn('city')} id = 'cityId'className = 'cell'>City</div>
                     <div onClick = {() => this.sortByColumn('state')} id = 'stateId' className = 'cell'>State</div>
                     <div  id = 'deleteId'className = 'cell'>Delete</div>
+                    <div  id = 'deleteId'className = 'cell'>Update</div>
               </div>
               <div className = "content">
                 {
                   peginationData.map((employee,index) =>{
                     const {id,first_name,last_name,city,state,email} = employee;
                     return(
-                    <Link to={`/employee/${id}`} className='row'>
+                    <Link style = {{display:'flex',marginLeft:'0px',marginRight:'0px'}} to={`/employee/${id}`} className='row'>
                       <div className = 'cell'>{id}</div>
                       <div className = 'cell'>{first_name}</div>
                       <div className = 'cell'>{last_name}</div>
                       <div id = 'emailId' className = 'cell'>{email}</div>
                       <div className = 'cell'>{city}</div>
                       <div className = 'cell'>{state}</div>
-                      <div className = 'cell' onClick = {() => this.props.deleteEployee(index)}>Delete</div>
+                      <div className = 'cell' onClick = {(event) => this.deleteEployee(index,event)}>Delete</div>
+                      <div className = 'cell' onClick = {(event) => this.updatedEmployee(index,event)}>Update</div>
                     </Link>)
                   })
                 }
                 <div class = 'pagination'>
                   <div class='box'>
-                    <div class = 'prev'  onClick = {()=> this.prev()}>prev</div>
-                    <div onClick = {()=> this.setPage(1)} className = {this.state.currentPage==1 ? 'active' : ''}>1</div>
-                    <div onClick = {()=> this.setPage(2)} className = {this.state.currentPage==2 ? 'active' : ''}>2</div>
-                    <div onClick = {()=> this.setPage(3)} className = {this.state.currentPage==3 ? 'active' : ''}>3</div>
-                    <div onClick = {()=> this.setPage(4)} className = {this.state.currentPage==4 ? 'active' : ''}>4</div>
-                    <div onClick = {()=> this.setPage(5)} className = {this.state.currentPage==5 ? 'active' : ''}>5</div>
-                    <div onClick = {()=> this.setPage(6)} className = {this.state.currentPage==6 ? 'active' : ''}>6</div>
-                    <div onClick = {()=> this.setPage(7)} className = {this.state.currentPage==7 ? 'active' : ''}>7</div>
-                    <div onClick = {()=> this.setPage(8)} className = {this.state.currentPage==8 ? 'active' : ''}>8</div>
-                    <div onClick = {()=> this.setPage(9)} className = {this.state.currentPage==9 ? 'active' : ''}>9</div>
-                    <div onClick = {()=> this.setPage(10)} className = {this.state.currentPage==10 ? 'active' : ''}>10</div>
-                    <div className = 'next' onClick = {()=> this.next()}>next</div>
+                    <Link to={`/page/${this.state.currentPage-1}`}><div class = 'prev'  onClick = {()=> this.prev()}>prev</div></Link>
+                      {
+                        pages.map(element => {
+                          return (<Link  to={`/page/${element}`}><div onClick = {()=> this.setPage(element)} className = {this.state.currentPage==element ? 'active' : ''}>{element}</div></Link>)
+                        })
+                      }
+                    <Link to={`/page/${this.state.currentPage+1}`}><div  className = 'next' onClick = {()=> this.next()} >next</div></Link>
                   </div>
                 </div>
             </div>
@@ -122,4 +131,4 @@ class List extends React.Component{
     );
   }
 }
-export default List;
+export default withRouter(List);

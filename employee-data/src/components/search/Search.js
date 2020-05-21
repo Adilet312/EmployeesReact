@@ -28,22 +28,21 @@ class Search extends React.Component{
   }
 
   render(){
-        return(<div>
-                 <div className = 'search-box'>
-                    <input   placeholder = 'search' onChange = {this.getInputData}/>
-                  </div>
-                  <div className = 'category-box'>
-                    <select id = 'employees'>
-                      <option value = '' selected>Select column</option>
-                      <option onClick = {() => this.searchByCategory('first_name')}>First name </option>
-                      <option onClick = {() => this.searchByCategory('last_name')}> Last name </option>
-                      <option onClick = {() => this.searchByCategory('email')}>Email</option>
-                      <option onClick = {() => this.searchByCategory('city')}>City</option>
-                      <option onClick = {() => this.searchByCategory('state')}>State</option>
-                    </select>
+        return(<div className = 'container'>
+                <div className = 'search-box'>
+                  <input   placeholder = 'search' onChange = {this.getInputData}/>
                 </div>
-              </div>
-            );
+                <div className = 'category-box'>
+                  <select id = 'employees'>
+                    <option value = '' selected>Select column</option>
+                    <option onClick = {() => this.searchByCategory('first_name')}>First name </option>
+                    <option onClick = {() => this.searchByCategory('last_name')}> Last name </option>
+                    <option onClick = {() => this.searchByCategory('email')}>Email</option>
+                    <option onClick = {() => this.searchByCategory('city')}>City</option>
+                    <option onClick = {() => this.searchByCategory('state')}>State</option>
+                  </select>
+                </div>
+              </div>)
           }
 }
 export default Search;

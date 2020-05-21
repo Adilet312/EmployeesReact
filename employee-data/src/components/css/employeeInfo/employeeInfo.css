@@ -1,0 +1,16 @@
+.detailInfo ul li{
+
+  list-style: none;
+}
+.detailInfo ul {
+
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+}
+.detailInfo {
+  margin-left: 40%;
+  width: 400px;;
+  height: 200px;
+  border: 2px solid black;
+}
